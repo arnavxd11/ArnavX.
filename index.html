@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultimate X | Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: url('https://i.ibb.co/dW4wTV2/circuit-bg.gif') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #0ff;
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #0ff;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #0ff;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .toggle-btn {
+      margin: 10px 0;
+      padding: 12px;
+      width: 100%;
+      background: #111;
+      color: #0ff;
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="login-box">
+    <h2>Ultimate X - Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="container panel" id="panel-box">
+    <h2>Ultimate X - Control Panel</h2>
+    <button class="toggle-btn" onclick="toggle(this, 'Aimbot')">Aimbot: OFF</button>
+    <button class="toggle-btn" onclick="toggle(this, 'Chams')">Chams: OFF</button>
+    <button class="toggle-btn" onclick="toggle(this, 'Sniper Scope')">Sniper Scope: OFF</button>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      if (user === "arnav" && pass === "1") {
+        document.getElementById("login-box").style.display = "none";
+        document.getElementById("panel-box").style.display = "block";
+      } else {
+        alert("Invalid login");
+      }
+    }
+
+    function toggle(btn, feature) {
+      if (btn.textContent.includes("OFF")) {
+        btn.textContent = ${feature}: ON;
+        btn.style.background = '#0f0';
+      } else {
+        btn.textContent = ${feature}: OFF;
+        btn.style.background = '#111';
+      }
+    }
+  </script>
+</body>
+</html>
