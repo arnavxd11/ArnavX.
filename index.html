@@ -1,114 +1,103 @@
+# Creating a sample HTML file with modern animated login and UI as per user's description.
+html_code = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ultimate X | Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arnav X - Cheat Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      background: url('https://i.ibb.co/dW4wTV2/circuit-bg.gif') no-repeat center center fixed;
-      background-size: cover;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
-
-    .container {
-      background: rgba(0, 0, 0, 0.85);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px #0ff;
-      width: 300px;
-      text-align: center;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      color: #0ff;
-    }
-
-    input {
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      outline: none;
-    }
-
-    button {
-      padding: 10px;
-      width: 100%;
-      background: #0ff;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-
-    .panel {
-      display: none;
-    }
-
-    .toggle-btn {
-      margin: 10px 0;
-      padding: 12px;
-      width: 100%;
-      background: #111;
-      color: #0ff;
-      border: 2px solid #0ff;
-      border-radius: 12px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+    body, html { height: 100%; background: linear-gradient(to right, #0f0c29, #302b63, #24243e); color: white; }
+    .login-screen, .panel { display: flex; justify-content: center; align-items: center; flex-direction: column; height: 100vh; }
+    input, button, select { padding: 10px; margin: 10px; border: none; border-radius: 8px; }
+    button { background: #ff0057; color: white; cursor: pointer; }
+    button:hover { background: #ff3366; }
+    .hidden { display: none; }
+    .tabs { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+    .tab-btn { padding: 10px 20px; background: #333; border-radius: 6px; cursor: pointer; }
+    .tab-btn.active { background: #ff0057; }
+    .tab-content { display: none; flex-direction: column; align-items: start; margin-top: 20px; }
+    .tab-content.active { display: flex; }
+    .toggle { display: flex; align-items: center; gap: 10px; }
+    .branding { font-size: 2em; margin-bottom: 30px; color: #ff0057; }
   </style>
 </head>
 <body>
-  <div class="container" id="login-box">
-    <h2>Ultimate X - Login</h2>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
+  <div class="login-screen" id="loginScreen">
+    <div class="branding">Arnav X</div>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
     <button onclick="login()">Login</button>
   </div>
 
-  <div class="container panel" id="panel-box">
-    <h2>Ultimate X - Control Panel</h2>
-    <button class="toggle-btn" onclick="toggle(this, 'Aimbot')">Aimbot: OFF</button>
-    <button class="toggle-btn" onclick="toggle(this, 'Chams')">Chams: OFF</button>
-    <button class="toggle-btn" onclick="toggle(this, 'Sniper Scope')">Sniper Scope: OFF</button>
+  <div class="panel hidden" id="mainPanel">
+    <div class="branding">Arnav X Panel</div>
+    <div class="tabs">
+      <div class="tab-btn active" onclick="openTab('aim')">AIM</div>
+      <div class="tab-btn" onclick="openTab('visuals')">VISUALS</div>
+      <div class="tab-btn" onclick="openTab('sniper')">SNIPER</div>
+    </div>
+
+    <div class="tab-content active" id="aim">
+      <label class="toggle"><input type="checkbox"> Aimbot</label>
+      <label>FOV: <input type="range" min="0" max="180"></label>
+    </div>
+    <div class="tab-content" id="visuals">
+      <label class="toggle"><input type="checkbox"> Chams</label>
+      <label class="toggle"><input type="checkbox"> Glow</label>
+      <label class="toggle"><input type="checkbox"> ESP Line</label>
+    </div>
+    <div class="tab-content" id="sniper">
+      <label class="toggle"><input type="checkbox"> Sniper Scope</label>
+      <label>Theme: 
+        <select onchange="changeTheme(this.value)">
+          <option>Dark</option>
+          <option>Light</option>
+          <option>Cyber</option>
+        </select>
+      </label>
+    </div>
+    <div style="margin-top: 20px;">
+      Architecture: 
+      <label><input type="radio" name="arch"> N32</label>
+      <label><input type="radio" name="arch"> P64</label>
+      <label><input type="radio" name="arch" checked> Auto Detect</label>
+    </div>
   </div>
 
   <script>
     function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      if (user === "arnav" && pass === "1") {
-        document.getElementById("login-box").style.display = "none";
-        document.getElementById("panel-box").style.display = "block";
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user && pass) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('mainPanel').classList.remove('hidden');
       } else {
-        alert("Invalid login");
+        alert("Enter username and password");
       }
     }
 
-    function toggle(btn, feature) {
-      if (btn.textContent.includes("OFF")) {
-        btn.textContent = ${feature}: ON;
-        btn.style.background = '#0f0';
-      } else {
-        btn.textContent = ${feature}: OFF;
-        btn.style.background = '#111';
-      }
+    function openTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function changeTheme(theme) {
+      alert("Theme changed to: " + theme);
     }
   </script>
 </body>
 </html>
+"""
+
+# Save this HTML content to a file
+file_path = "/mnt/data/index.html"
+with open(file_path, "w") as file:
+    file.write(html_code)
+
+file_path
+
